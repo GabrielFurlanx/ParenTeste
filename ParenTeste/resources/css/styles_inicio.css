@@ -1,0 +1,110 @@
+/* styles.css */
+body {
+    overflow-x: hidden;
+    margin: 0; /* Remove a margem padrão */
+}
+
+#wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    margin-left: -250px;
+    background-color: gray; /* Cor cinza para o sidebar */
+    transition: margin 0.25s ease-out;
+    padding-top: 60px; /* Ajuste o padding superior para a altura da navbar */
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 20px;
+    overflow-x: hidden;
+    padding-top: 80px; /* Adicione um padding superior para compensar a navbar */
+}
+
+.navbar {
+    background-color: orange; /* Cor laranja para a navbar */
+    margin-bottom: 0; /* Remove a margem inferior */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Define a largura da parte laranja */
+    z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
+}
+
+/* CSS adicional */
+.navbar-text {
+    font-size: 18px; /* Tamanho da fonte */
+    color: #fff; /* Cor branca */
+    margin-left: 5px; /* Espaço entre o ícone e o texto */
+}
+
+.user-icon {
+    font-size: 18px; /* Tamanho do ícone */
+    color: #fff; /* Cor branca */
+}
+
+#sidebar-wrapper .list-group-item {
+    background-color: gray; /* Mesma cor do sidebar */
+    color: white; /* Texto branco para contraste */
+    border: none; /* Remove a borda dos itens */
+    border-bottom: 1px solid white; /* Adiciona uma linha branca entre os itens */
+}
+
+#sidebar-wrapper .list-group-item:last-child,
+#sidebar-wrapper .submenu-item:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+#sidebar-wrapper .list-group-item:hover,
+#sidebar-wrapper .submenu-item:hover {
+    background-color: darkgray; /* Cor de fundo ao passar o mouse */
+}
+
+#sidebar-wrapper .submenu-item {
+    padding-left: 20px; /* Menor indentação para os itens de submenu */
+    background-color: gray; /* Mesma cor do sidebar */
+    color: white; /* Texto branco para contraste */
+}
+
+/* Adiciona a linha branca nos sub-itens que não estão colapsados */
+#sidebar-wrapper .submenu-item:not(.collapsed) {
+    border-bottom: 1px solid white;
+}
+
+.collapse {
+    transition: height 0.3s ease; /* Animação suave para a expansão */
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -250px;
+    }
+}
+
+/* CSS */
+.list-group-item .arrow-icon {
+    transition: transform 0.3s ease; /* Adiciona uma transição suave para a rotação do ícone */
+}
+
+#menu-toggle {
+    background-color: orange;
+    border-color: orange;
+}
+
+#menu-toggle .fas.fa-bars {
+    color: white; /* Para deixar o ícone branco */
+}
