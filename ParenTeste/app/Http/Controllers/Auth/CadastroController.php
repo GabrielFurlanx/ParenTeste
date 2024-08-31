@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -42,6 +41,9 @@ class CadastroController extends Controller
             'senha' => $presetPassword,
         ]);
 
-        return response()->json(['message' => 'Usuário cadastrado com sucesso!', 'usuario' => $usuario], 201);
+        return response()->json([
+            'message' => 'Usuário cadastrado com sucesso!',
+            'redirectTo' => '/login' // Indica a URL para redirecionamento
+        ], 201);
     }
 }

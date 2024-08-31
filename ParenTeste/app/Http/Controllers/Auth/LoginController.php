@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -20,9 +21,12 @@ class LoginController extends Controller
 
         if ($user && $user->senha === $request->senha) {
             Auth::login($user);
-            return response()->json(['message' => 'Login bem-sucedido!'], 200);
+
+            // Redireciona para a página inicial após o login bem-sucedido
+            return Redirect::to('/');
         } else {
-            return response()->json(['message' => 'Credenciais inválidas'], 401);
+            // Retorna um redirecionamento com a mensagem de erro para o frontend
+            return Redirect::back()->withErrors(['message' => 'Credenciais inválidas']);
         }
     }
 }
