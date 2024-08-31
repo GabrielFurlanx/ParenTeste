@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Auth\CadastroController;
 use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', function () {
+Route::get('/teste1', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/menu', function () {
+Route::get('/', function () {
     return Inertia::render('Menu');
 });
 

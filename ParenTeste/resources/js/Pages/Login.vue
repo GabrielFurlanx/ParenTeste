@@ -1,7 +1,6 @@
 <template>
     <div class="flex items-center justify-center min-h-screen bg-gray-500">
       <div class="w-96 bg-white rounded shadow-md">
-        <!-- Barra laranja com o texto LOGIN -->
         <div class="bg-orange-500 text-white text-center py-2 rounded-t">
           LOGIN
         </div>
@@ -49,34 +48,37 @@
   </template>
 
   <script>
-  import axios from 'axios';
+  import { ref } from 'vue';
+  import { Inertia } from '@inertiajs/inertia';
 
   export default {
-  name: "LoginForm",
-  data() {
-    return {
-      email: '',
-      senha: ''
-    };
-  },
-  methods: {
-    async handleLogin() {
-    try {
-        const response = await axios.post('/login', {
-            email: this.email,
-            senha: this.senha
-        });
-        alert(response.data.message);
-    } catch (error) {
-        console.error('Erro ao fazer login:', error.response ? error.response.data.message : 'Erro desconhecido');
-        alert(error.response ? error.response.data.message : 'Erro desconhecido');
-    }
-   }
-  }
-};
+    name: "LoginForm",
+    setup() {
+      const email = ref('');
+      const senha = ref('');
 
+      const handleLogin = async () => {
+        try {
+          await Inertia.post('/login', {
+            email: email.value,
+            senha: senha.value
+          });
+        } catch (error) {
+          // Exibe mensagem de erro se houver
+          const errorMessage = error.response?.data?.errors?.email[0] || 'Erro desconhecido';
+          alert(errorMessage);
+        }
+      };
+
+      return {
+        email,
+        senha,
+        handleLogin
+      };
+    }
+  }
   </script>
 
   <style scoped>
-  /* Adicione estilos específicos se necessário */
+  /* Seus estilos aqui */
   </style>

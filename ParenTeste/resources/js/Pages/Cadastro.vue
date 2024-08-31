@@ -121,37 +121,49 @@
   <script>
   import axios from 'axios';
 
-  export default {
-    name: 'CadastroForm',
-    data() {
-      return {
-        formData: {
-          nome_completo: '',
-          email: '',
-          cpf: '',
-          telefone: '',
-          endereco: '',
-          bairro: '',
-          cep: '',
-          complemento: '',
-          genero: '',
-          data_nascimento: '',
-          convenio: ''
-        }
-      };
-    },
-    methods: {
-      async registerUser() {
-        try {
-          const response = await axios.post('/cadastro', this.formData);
-          alert(response.data.message || 'Usuário cadastrado com sucesso!');
-        } catch (error) {
-          console.error('Erro ao cadastrar usuário:', error);
+  import { Inertia } from '@inertiajs/inertia';
+
+export default {
+  name: 'CadastroForm',
+  data() {
+    return {
+      formData: {
+        nome_completo: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        endereco: '',
+        bairro: '',
+        cep: '',
+        complemento: '',
+        genero: '',
+        data_nascimento: '',
+        convenio: ''
+      }
+    };
+  },
+  methods: {
+    async registerUser() {
+      try {
+        const response = await axios.post('/cadastro', this.formData);
+        alert(response.data.message || 'Usuário cadastrado com sucesso!');
+        Inertia.visit(response.data.redirectTo); // Redireciona para a página de login
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          const errors = error.response.data.errors;
+          let errorMessage = 'Erro ao cadastrar usuário:\n';
+          for (const [field, messages] of Object.entries(errors)) {
+            errorMessage += `${field}: ${messages.join(', ')}\n`;
+          }
+          alert(errorMessage);
+        } else {
           alert('Erro ao cadastrar usuário. Tente novamente mais tarde.');
         }
       }
     }
-  };
+  }
+};
+
   </script>
 
   <style scoped>
